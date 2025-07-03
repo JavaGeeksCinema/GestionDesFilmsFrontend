@@ -1,0 +1,50 @@
+<div class="bg-white">
+  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
+    <h2 class="text-2xl font-bold tracking-tight text-gray-900 mb-6">Movies</h2>
+
+    <!-- Barre de recherche -->
+    <div class="mb-8 max-w-md">
+      <input
+        type="text"
+        placeholder="Search movies by title..."
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="applyFilter()"
+        class="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-700 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+      />
+    </div>
+
+    <!-- Grille uniforme -->
+    <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+      <div *ngFor="let movie of filteredMovies" class="group relative">
+
+        <!-- Conteneur à taille fixe -->
+        <div class="w-full h-80 overflow-hidden rounded-lg bg-gray-100">
+          <img
+            [src]="moviesService.getMovieImageUrl(movie.id)"
+            alt="Movie poster"
+            class="w-full h-full object-cover object-center"
+          />
+        </div>
+
+        <!-- Détails sous l’image -->
+        <div class="mt-4 flex justify-between">
+          <div class="max-w-[70%]">
+            <h3 class="text-sm font-bold text-gray-800">
+              <a [routerLink]="['/movie', movie.id]" class="relative">
+                <span class="absolute inset-0" aria-hidden="true"></span>
+                {{ movie.title }}
+              </a>
+            </h3>
+            <p class="mt-1 text-sm text-gray-500">
+              {{ movie.releaseDate | date:'yyyy' }} &bull; {{ movie.duration }} min
+            </p>
+          </div>
+          <p class="text-sm font-medium text-gray-900">
+            {{ movie.rating }}/10
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

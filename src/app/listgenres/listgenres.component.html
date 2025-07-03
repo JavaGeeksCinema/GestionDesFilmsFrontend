@@ -1,0 +1,66 @@
+<div class="min-h-screen bg-gray-100 p-6">
+
+  <!-- Conteneur central -->
+  <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+
+    <!-- 1️⃣ En-tête & Formulaire d’ajout -->
+    <div class="px-6 py-4 border-b border-gray-200">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Gestion des Genres</h2>
+
+      <form (ngSubmit)="addGenre()"  [formGroup]="genreForm" class="flex space-x-2">
+        <input
+          type="text"
+          formControlName="name"
+          name="name"
+          placeholder="Nom du nouveau genre"
+          required
+          class="flex-1 rounded-md border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-opacity-50"
+        />
+        <button
+          type="submit"
+          class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+        >
+          Add Genre
+        </button>
+      </form>
+    </div>
+
+    <!-- 2️⃣ Table des genres -->
+    <div class="px-6 py-4">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+        <tr>
+          <th class="px-4 py-2 text-left text-sm font-medium text-gray-500 uppercase">Genre</th>
+
+          <th class="px-4 py-2"></th>
+        </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+        <tr *ngFor="let genre of genresList">
+          <!-- Nom du genre -->
+          <td class="px-4 py-3 text-sm text-gray-800">{{ genre.name }}</td>
+
+          <!-- Liste des films associés -->
+
+
+          <!-- Bouton Supprimer -->
+          <td class="px-4 py-3 text-right">
+            <button
+              (click)="deleteGenre(genre.id)"
+              class="text-red-600 hover:text-red-800 text-sm font-medium"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+        <!-- Si aucun genre -->
+        <tr *ngIf="genresList.length === 0">
+          <td colspan="3" class="px-4 py-3 text-center text-gray-500">
+            Aucun genre disponible.
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
