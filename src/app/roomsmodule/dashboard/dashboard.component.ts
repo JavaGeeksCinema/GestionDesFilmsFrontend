@@ -10,5 +10,9 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
+show=false;
 
+display(){
+  this.show=!this.show;
+}
 }

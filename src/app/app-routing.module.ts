@@ -23,14 +23,13 @@ import { RoomsAdminDashboardComponent } from './roomsmodule/rooms-admin-dashboar
 import { SuccessComponent } from './roomsmodule/success/success.component';
 
 const routes: Routes = [
- { path: 'reclamationHome', component: ReclamationHomeComponent },
+
   { path: 'reclamationDetails', component: ReclamationDetailComponent },
   { path: 'reclamationCreate', component: ReclamationCreateComponent },
   { path: 'reclamation-detail/:id', component: ReclamationDetailComponent },
   { path: 'reclamation-user-detail/:id', component: ReclamationDetailUserComponent },
   { path: 'navbar', component: NavbarComponent },
   { path: 'addmovie', component: AddmovieComponent },
-  { path: 'listmovies', component: ListmoviesComponent },
   { path: 'gridmovies', component: GridmoviesComponent },
   { path: 'movie/:id', component: MoviepageComponent },
   { path: 'listgenres', component: ListgenresComponent },
@@ -38,7 +37,7 @@ const routes: Routes = [
    { path: '', redirectTo: '/login', pathMatch: 'full' },
 { path: 'login', component: Login },
   { path: 'CreateAccount', component: CreateAccount } ,  
-{ path: 'admin/users', component: AdminUserManagement },
+
 { path: 'admin/users/adduser', component: AddUser },
 { path: 'edit-user/:id', component: EditUser },
 { path: 'profile', component: UserProfile },
@@ -49,6 +48,9 @@ const routes: Routes = [
         { path: 'success', component: SuccessComponent },
         { path: 'dashboard', component: DashboardComponent , children : [ 
                 { path: 'RoomDashboard', component: RoomsAdminDashboardComponent },
+                { path: 'listmovies', component: ListmoviesComponent },
+                 { path: 'reclamationHome', component: ReclamationHomeComponent },
+                 { path: 'admin/users', component: AdminUserManagement },
 
         ] },
          { path: '**', component: Login },
