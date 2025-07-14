@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { MovieService } from "../services/movie.service";
 
 
@@ -11,8 +11,9 @@ import { MovieService } from "../services/movie.service";
 export class MoviepageComponent implements OnInit {
   movieId!: string;
   movie!: any;         // Movie + on y ajoutera bientôt .genres: Genre[]
-
+  RoomId=1;
   constructor(
+    private router:Router,
     private route: ActivatedRoute,
     protected movieService: MovieService
   ) { }
@@ -38,5 +39,15 @@ export class MoviepageComponent implements OnInit {
       },
       error: err => console.error('Erreur récup film:', err)
     });
+  }
+
+  redirectTo(){
+      return this.router.navigate( ['/booking', this.RoomId], // movieId est le paramètre de chemin
+  {
+    queryParams: {
+      seanceId: 1,
+      filmId:"id"
+    }
+  })
   }
 }

@@ -1,0 +1,73 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="bg-white shadow rounded-lg p-6">
+    <!-- Header with title and Add User button -->
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-2xl font-bold">User Management</h1>
+      <button
+        (click)="onAddUser()"
+        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      >
+        Add User
+      </button>
+    </div>
+
+    <!-- Loading & Error states -->
+    <div *ngIf="loading" class="p-4 text-center text-gray-500">Loading users...</div>
+    <div *ngIf="error" class="p-4 text-center text-red-600">{{ error }}</div>
+
+    <!-- User Table -->
+    <div *ngIf="!loading && !error" class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Name
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Email
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Role
+            </th>
+            <th scope="col" class="relative px-6 py-3">
+              <span class="sr-only">Edit</span>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr
+            *ngFor="let user of users; let i = index"
+            [class.bg-gray-50]="i % 2 === 1"
+            class="bg-white"
+          >
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              {{ user.username }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ user.email }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ user.role }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-4">
+  <a [routerLink]="['/edit-user', user.id]" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+  <button
+    (click)="onDeleteUser(user.id)"
+    class="text-red-600 hover:text-red-900 focus:outline-none"
+    aria-label="Delete user"
+  >
+    Delete
+  </button>
+</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,24 +1,57 @@
-<div class="bg-white">
-  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
-    <h2 class="text-2xl font-bold tracking-tight text-gray-900 mb-6">Movies</h2>
+<div class="bg-white min-h-screen">
+  <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+
+    <!-- Header avec logo + actions -->
+    <div class="flex justify-between items-center mb-10">
+      <!-- Titre -->
+      <div class="flex items-center space-x-2">
+        <span class="text-3xl font-extrabold text-[#800000]">🎬 MyCima</span>
+      </div>
+
+      <!-- Actions à droite -->
+      <div class="flex items-center space-x-4">
+        <!-- Bouton Ajouter Réclamation -->
+        <a [routerLink]="['/reclamationCreate']"
+           class="inline-flex items-center px-4 py-2 bg-[#800000] text-white text-sm font-medium rounded-md shadow hover:bg-[#660000] transition">
+          + Ajouter Réclamation
+        </a>
+
+        <!-- Profil -->
+        <a [routerLink]="['/profile']"
+           class="flex flex-col items-center text-sm text-gray-600 hover:text-[#800000] group"
+           title="Mon Profil">
+          <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" stroke-width="2"
+               viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M5.121 17.804A13.937 13.937 0 0112 15c2.21 0 4.293.534 6.121 1.475M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 2a10 10 0 100 20 10 10 0 000-20z"/>
+          </svg>
+          <span class="text-xs">Mon Profil</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Titre section Movies -->
+    <h2 class="text-2xl font-bold tracking-tight text-gray-800 mb-4">Catalogue de films</h2>
 
     <!-- Barre de recherche -->
-    <div class="mb-8 max-w-md">
+    <div class="mb-10 max-w-md">
       <input
         type="text"
-        placeholder="Search movies by title..."
+        placeholder="🔍 Rechercher un film..."
         [(ngModel)]="searchTerm"
         (ngModelChange)="applyFilter()"
-        class="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-700 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        class="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700 shadow focus:border-[#800000] focus:ring focus:ring-[#800000]/40 focus:ring-opacity-50"
       />
     </div>
 
-    <!-- Grille uniforme -->
+    <!-- Grille de films -->
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-      <div *ngFor="let movie of filteredMovies" class="group relative">
+      <div *ngFor="let movie of filteredMovies" class="group relative bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition">
 
-        <!-- Conteneur à taille fixe -->
-        <div class="w-full h-80 overflow-hidden rounded-lg bg-gray-100">
+        <!-- Image -->
+        <div class="w-full h-80 bg-gray-100">
           <img
             [src]="moviesService.getMovieImageUrl(movie.id)"
             alt="Movie poster"
@@ -26,20 +59,19 @@
           />
         </div>
 
-        <!-- Détails sous l’image -->
-        <div class="mt-4 flex justify-between">
+        <!-- Infos -->
+        <div class="p-4 flex justify-between items-start">
           <div class="max-w-[70%]">
-            <h3 class="text-sm font-bold text-gray-800">
-              <a [routerLink]="['/movie', movie.id]" class="relative">
-                <span class="absolute inset-0" aria-hidden="true"></span>
+            <h3 class="text-sm font-semibold text-gray-900">
+              <a [routerLink]="['/movie', movie.id]" class="hover:underline">
                 {{ movie.title }}
               </a>
             </h3>
-            <p class="mt-1 text-sm text-gray-500">
+            <p class="mt-1 text-xs text-gray-500">
               {{ movie.releaseDate | date:'yyyy' }} &bull; {{ movie.duration }} min
             </p>
           </div>
-          <p class="text-sm font-medium text-gray-900">
+          <p class="text-sm font-semibold text-[#800000]">
             {{ movie.rating }}/10
           </p>
         </div>

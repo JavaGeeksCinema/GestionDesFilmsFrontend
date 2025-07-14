@@ -1,0 +1,19 @@
+<div (click)="select()" class=" flex w-fit" >
+    
+    <div  class="w-7 h-7   overflow-hidden relative ">
+        <!-- Outer container -->
+        <div class="absolute top-0 left-0 w-full h-full origin-top-right transform border-2 rounded-md"
+     [ngClass]="{
+       'bg-green-400 border-green-500 cursor-pointer': selected == 'SELECTED',
+       'bg-orange-400 border-orange-500 cursor-pointer': selected == 'AVAILABLE' && seattype?.seatStatus !== 'RESERVED',
+       'bg-red-400 border-red-500 cursor-not-allowed': selected == 'RESERVED' || seattype?.seatStatus == 'RESERVED'
+     }">
+
+
+            <mat-icon *ngIf="selected=='SELECTED' " class="relative bottom-0.5 text-white text-xl  font-bold flex items-center justify-center ">check</mat-icon>
+        	<mat-icon *ngIf="seattype?.seatType=='DISABILITY' && !selected" class="relative bottom-0.75 left-1 text-white text-base   font-bold flex items-center justify-center "  >accessible</mat-icon>
+        </div>  
+    </div>
+
+
+</div>

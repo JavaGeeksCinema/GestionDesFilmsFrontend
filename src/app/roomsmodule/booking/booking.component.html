@@ -1,0 +1,140 @@
+<!-- This example requires Tailwind CSS v2.0+ -->
+<!--
+  This example requires updating your template:
+
+  ```
+  <html class="h-full bg-gray-100">
+  <body class="h-full">
+  ```
+-->
+<div>
+    <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
+    
+  
+    <!-- Static sidebar for desktop -->
+    <div   [ngStyle]="{ 'background-image': 'url(' + url + ')' }"
+    class="hidden  md:flex md:w-80 md:flex-col md:fixed md:inset-y-0 bg-cover bg-center bg-no-repeat"  >
+      <!-- Sidebar component, swap this element with another sidebar if you like -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent backdrop-blur-sm"></div>
+
+      <div class="relative z-10 flex-1 flex flex-col min-h-0 ">
+        <div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
+        
+          <nav class="mt-5 flex-1 px-2 space-y-1">
+            <mat-icon class="cursor-pointer mb-3">keyboard_backspace</mat-icon>
+            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+            <div class="">
+                <img src="{{url}}" alt="" class="mx-auto block w-full max-w-xs aspect-[2/3] sm:w-64 sm:h-96 transition-transform duration-300 hover:scale-105 rounded-md">
+                <h2 class="text-xl font-bold text-white text-center pt-6 uppercase tracking-wide">
+                    Final Destination
+                </h2>
+            </div>
+          
+          </nav>
+        </div>
+        <div class="flex-shrink-0 flex bg-gray-700 p-4">
+            <a href="#" class="flex-shrink-0 w-full group block">
+              <div class="flex items-center justify-between">
+                <div class="ml-3">
+                  <p class="text-xs font-medium text-gray-300 group-hover:text-gray-200">Date</p>
+                  <p class="text-sm font-medium text-white">View profile</p>
+                </div>
+                <mat-icon class="text-white">keyboard_arrow_right</mat-icon>
+
+              </div>
+            </a>
+        </div>
+        <div class="flex-shrink-0 flex bg-gray-700 p-4">
+            <a href="#" class="flex-shrink-0 w-full group block">
+              <div class="flex items-center justify-between">
+                <div class="ml-3">
+                  <p class="text-xs font-medium text-gray-300 group-hover:text-gray-200">seance</p>
+                  <p class="text-sm font-medium text-white">12:00:00</p>
+                </div>
+                <mat-icon class="text-white">keyboard_arrow_right</mat-icon>
+              </div>
+            </a>
+            
+        </div>
+        <div class="flex-shrink-0 flex bg-gray-700 p-4">
+            <a href="#" class="flex-shrink-0 w-full group block">
+              <div class="flex items-center justify-between">
+                <div class="ml-3">
+                  <p class="text-xs font-medium text-gray-300 group-hover:text-gray-200">cinema</p>
+                  <p class="text-sm font-medium text-white">pathe menzah</p>
+                </div>
+                <mat-icon class="text-white">keyboard_arrow_right</mat-icon>
+              </div>
+            </a>
+            
+        </div>
+   
+      </div>
+    </div>
+    
+    <div class="md:pl-60 flex flex-col flex-2">
+      
+ <main class="flex-2 h-screen">
+  <div class="flex flex-col justify-between h-full px-8 py-6 mx-auto">
+
+    <!-- Header Section -->
+    <div class="ml-20">
+      <h2 class="text-lg font-bold text-black">Room 1</h2>
+      <div class="mt-4">
+        <p class="text-4xl font-bold text-black">Select Your Seats</p>
+        <p class="text-xl text-gray-500">{{ seatsavailable }} seats available</p>
+      </div>
+        <!-- This example requires Tailwind CSS v2.0+ -->
+        <div *ngIf="this.errorDiv=='locked'" class="mx-32 rounded-md bg-red-50 p-4">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <!-- Heroicon name: solid/exclamation -->
+              <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-medium text-red-800">Attention needed</h3>
+              <div class="mt-2 text-sm text-red-700">
+                <p>these rooms are unavailable.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <app-cinemaseats (returnSelectedSeats)="selectSeats($event)"></app-cinemaseats>
+    <div class=" flex justify-start space-x-6">
+      <div class="flex items-center">
+        <app-seat [selected]="'SELECTED'"></app-seat>
+        <p class="pl-2 pt-3 text-green-400">Seat Selected</p>
+      </div>
+      <div class="flex items-center">
+        <app-seat [selected]="'AVAILABLE'"></app-seat>
+        <p class="pl-2 pt-3 text-orange-400">Seat Available</p>
+      </div>
+      <div class="flex items-center">
+        <app-seat [selected]="'RESERVED'"></app-seat>
+        <p class="pl-2 pt-3 text-red-400">Seat Booked</p>
+      </div>
+    </div>
+    </div>
+
+    <!-- Legend Section -->
+   
+
+    <!-- Action Buttons -->
+    <div *ngIf="selectedSeats.length > 0" class="space-y-4 ml-20">
+      <div (click)="lockSeats()" class="cursor-pointer bg-orange-400 hover:bg-orange-500 transition-all duration-300 rounded p-4 flex items-center justify-center">
+        <mat-icon class="mr-2">local_grocery_store</mat-icon>
+        <p class="text-xl font-bold">Buy Your Tickets</p>
+      </div>
+     
+    </div>
+
+  </div>
+</main>
+
+      
+    </div>
+    
+  </div>
+  

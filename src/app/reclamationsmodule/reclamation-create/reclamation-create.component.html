@@ -1,0 +1,165 @@
+<div class="space-y-6">
+  <div class="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
+    <div class="md:grid md:grid-cols-3 md:gap-6">
+
+      <div class="mt-5 md:mt-0 md:col-span-2">
+        <div class="md:col-span-1">
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Profile</h3>
+          <p class="mt-2 mb-5 text-sm text-gray-500">
+            This information will be displayed publicly so be careful what you share.
+          </p>
+        </div>
+
+        <!-- ✅ Main form starts here -->
+        <form [formGroup]="issueForm" (ngSubmit)="onSubmit()" class="space-y-6">
+
+          <div class="grid grid-cols-6 gap-6">
+            <!-- Issue Type Select -->
+            <div class="col-span-6 sm:col-span-3">
+              <label for="issueType" class="block text-sm font-medium text-gray-700">Issue Type</label>
+              <select id="issueType"
+                      name="issueType"
+                      formControlName="object"
+                      (change)="onIssueTypeChange($event)"
+                      class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <option value="" disabled>Select issue type</option>
+                <option *ngFor="let issue of issueTypes" [value]="issue.corps_objet">
+                  {{ issue.corps_objet }}
+                </option>
+                <option [value]="'Other'">Other</option>
+              </select>
+
+            </div>
+
+            <!-- ✅ Conditionally shown "Other" input -->
+            <div *ngIf="showOtherInput" class="col-span-6 sm:col-span-3">
+              <label for="otherIssue" class="block text-sm font-medium text-gray-700">Please specify</label>
+              <input type="text" id="otherIssue" name="otherIssue" formControlName="otherDetail"
+                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                     placeholder="Describe the issue..." />
+
+              <button type="button" (click)="onSaveNewObject()"
+                      class="mt-2 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Save new object
+              </button>
+            </div>
+          </div>
+
+          <!-- Urgency Level -->
+          <div class="grid grid-cols-6 gap-6">
+            <div class="col-span-6 sm:col-span-3">
+              <label for="level" class="block text-sm font-medium text-gray-700">Urgency Level</label>
+              <select id="level" name="level" formControlName="level" autocomplete="off"
+                      class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <option value="" disabled selected>Select level</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Creation Date (readonly) -->
+          <div class="grid grid-cols-6 gap-6">
+            <div class="col-span-6 sm:col-span-3">
+              <label class="block text-sm font-medium text-gray-700">Created at</label>
+              <input type="date" formControlName="creationdate"
+                     class="mt-2 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+          </div>
+
+          <!-- Description -->
+
+
+          <!-- Submit and Cancel buttons -->
+          <div class="flex justify-end pt-4">
+            <button type="button"
+                    class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Cancel
+            </button>
+            <button type="submit"
+                    class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Save
+            </button>
+          </div>
+
+        </form>
+
+        <!-- DESCRIPTION MODAL -->
+        <!-- Modal Dialog -->
+        <div
+          class="fixed inset-0 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center"
+          *ngIf="showDescriptionModal"
+        >
+          <div class="bg-white rounded-lg p-6 w-full max-w-md shadow-xl">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-lg font-medium text-gray-900">Your Comment</h3>
+              <button
+                (click)="closeDescriptionModal()"
+                class="text-gray-400 hover:text-gray-600"
+              >
+                ✕
+              </button>
+            </div>
+
+            <!-- Modal Form -->
+            <form [formGroup]="descriptionForm" (ngSubmit)="submitDescription()">
+              <label for="description" class="block text-sm font-medium text-gray-700">Describe the issue</label>
+              <div class="mt-2">
+        <textarea
+          formControlName="description"
+          id="description"
+          rows="3"
+          class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
+          placeholder="Type here..."
+        ></textarea>
+              </div>
+              <p class="mt-2 text-sm text-gray-500">Brief description for your experience.</p>
+
+              <div class="mt-4 flex justify-between">
+                <button
+                  type="submit"
+                  class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+                >
+                  Add your first comment
+                </button>
+                <button
+                  type="button"
+                  (click)="closeDescriptionModal()"
+                  class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400"
+                >
+                  Close
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+
+
+        <!-- ✅ Main form ends here -->
+      </div>
+
+      <!-- Live Preview Panel -->
+      <div class="md:col-span-1">
+        <section aria-labelledby="timeline-title" class="lg:col-start-3 lg:col-span-1">
+          <div
+            style="margin: 1.5rem auto; max-width: 360px; display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; font-size: 0.875rem; font-weight: 500; border: 1px solid #ddd; padding: 0.75rem; border-radius: 6px; background: #f9f9f9;">
+            <div>Issue Type</div>
+            <div>{{ issueForm.get('object')?.value || 'Not selected' }}</div>
+
+            <div>Urgency Level</div>
+            <div>{{ issueForm.get('level')?.value || 'Not selected' }}</div>
+
+            <div>Creation Date</div>
+            <div>{{ issueForm.get('creationDate')?.value ? (issueForm.get('creationDate')?.value | date:'mediumDate') : 'Not selected' }}</div>
+
+            <div>Description</div>
+            <div style="white-space: pre-wrap;">{{ descriptionForm.get('description')?.value || 'No description' }}</div>
+          </div>
+        </section>
+      </div>
+
+    </div>
+  </div>
+</div>
