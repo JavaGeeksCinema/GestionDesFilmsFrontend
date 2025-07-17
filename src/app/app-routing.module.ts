@@ -26,6 +26,7 @@ import {
   ReservationConfirmationComponent
 } from "./reservationmodule/reservation-confirmation/reservation-confirmation.component";
 import {TicketComponent} from "./reservationmodule/ticket/ticket.component";
+import {StatistiquesComponent} from "./statistiques/statistiques.component";
 
 
 const routes: Routes = [
@@ -62,6 +63,7 @@ const routes: Routes = [
                  { path: 'reclamationHome', component: ReclamationHomeComponent },
                  { path: 'admin/users', component: AdminUserManagement },
                  { path: 'reservationAdmin', component: ReservationAdminComponent },
+                 { path: 'statistiques', component: StatistiquesComponent},
 
         ] },
          { path: '**', component: Login },
