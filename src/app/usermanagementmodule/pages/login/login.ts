@@ -11,7 +11,7 @@ import {Router, RouterModule} from '@angular/router';
 })
 export class Login {
 
-  role:String ="ADMIN";
+  role:any;
   constructor(private http: HttpClient , private router : Router ) {}
 
   onSubmit(event: Event) {
