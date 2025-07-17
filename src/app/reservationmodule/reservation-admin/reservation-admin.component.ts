@@ -29,4 +29,19 @@ export class ReservationAdminComponent implements OnInit{
       }
     });
   }
+
+  cancelReservation(id: number | undefined): void {
+    if (id != null) {
+      this.reservationService.cancelReservation(id).subscribe({
+        next: () => {
+          console.log(`Reservation ${id} cancelled`);
+          this.loadReservations(); // Reload list or update UI as needed
+        },
+        error: err => {
+          console.error('Error cancelling reservation:', err);
+        }
+      });
+    }
+  }
+
 }

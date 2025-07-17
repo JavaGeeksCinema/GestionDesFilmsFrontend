@@ -11,23 +11,19 @@
         <p class="mt-2 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">Enjoy the Movie!</p>
         <p class="mt-2 text-base text-gray-500">Your ticket has been booked. You will receive an email confirmation shortly.</p>
 
-        <dl class="mt-16 text-sm font-medium">
-          <dt class="text-gray-900">Booking Reference</dt>
-          <dd class="mt-2 text-indigo-600">MTK-20250707-981234</dd>
-        </dl>
 
         <!-- Ticket Details -->
         <ul role="list" class="mt-6 text-sm font-medium text-gray-500 border-t border-gray-200 divide-y divide-gray-200">
           <li class="flex py-6 space-x-6">
             <img src="https://tailwindui.com/img/ecommerce-images/confirmation-page-06-product-01.jpg" alt="Movie thumbnail" class="flex-none w-24 h-24 bg-gray-100 rounded-md object-center object-cover">
-            <div class="flex-auto space-y-1">
-              <h3 class="text-gray-900 text-lg font-semibold">Oppenheimer</h3>
-              <p>Theatre: Grand Cinema Hall 3</p>
-              <p>Date: July 10, 2025</p>
-              <p>Time: 7:30 PM</p>
-              <p>Seats: Row D, Seats 7-8</p>
+            <div class="flex-auto space-y-1" *ngIf="reservation">
+              <h3 class="text-gray-900 text-lg font-semibold">{{reservation.movieId}}</h3>
+              <p>{{reservation.seanceId}}</p>
+              <p>{{reservation.reservationTime}}</p>
+
+              <p>{{reservation.seatId}}</p>
             </div>
-            <p class="flex-none font-medium text-gray-900">$28.00</p>
+            <p class="flex-none font-medium text-gray-900">{{reservation?.numberOfTickets}}</p>
           </li>
         </ul>
 
@@ -53,31 +49,16 @@
             <dt class="font-medium text-gray-900">Booked By</dt>
             <dd class="mt-2">
               <address class="not-italic">
-                <span class="block">Alex Johnson</span>
+                <span class="block">{{reservation?.customerId}}</span>
                 <span class="block">alexexample.com</span>
               </address>
             </dd>
           </div>
-          <div>
-            <dt class="font-medium text-gray-900">Payment Info</dt>
-            <dd class="mt-2 space-y-2 sm:flex sm:space-y-0 sm:space-x-4">
-              <div class="flex-none">
-                <svg aria-hidden="true" width="36" height="24" viewBox="0 0 36 24" xmlns="http://www.w3.org/2000/svg" class="h-6 w-auto">
-                  <rect width="36" height="24" rx="4" fill="#224DBA" />
-                  <path d="..." fill="#fff" />
-                </svg>
-                <p class="sr-only">Visa</p>
-              </div>
-              <div class="flex-auto">
-                <p class="text-gray-900">Ending with 4242</p>
-                <p>Expires 12 / 26</p>
-              </div>
-            </dd>
-          </div>
+
         </dl>
 
         <div class="mt-16 border-t border-gray-200 py-6 text-right">
-          <a href="/movies" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Book Another Ticket <span aria-hidden="true">→</span></a>
+          <a href="/gridmovies" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Book Another Ticket <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>

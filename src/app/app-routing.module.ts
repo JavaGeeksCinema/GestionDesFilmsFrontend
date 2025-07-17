@@ -32,7 +32,7 @@ import {StatistiquesComponent} from "./statistiques/statistiques.component";
 const routes: Routes = [
 
   { path: 'reservationConfirmation/:id', component: ReservationConfirmationComponent },
-  { path: 'ticket', component: TicketComponent },
+  { path: 'tickets', component: TicketComponent },
 
 
  { path: 'reclamationDetails', component: ReclamationDetailComponent },
