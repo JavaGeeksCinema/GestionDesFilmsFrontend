@@ -21,10 +21,20 @@ import { CreateRoomComponent } from './roomsmodule/create-room/create-room.compo
 import { DashboardComponent } from './roomsmodule/dashboard/dashboard.component';
 import { RoomsAdminDashboardComponent } from './roomsmodule/rooms-admin-dashboard/rooms-admin-dashboard.component';
 import { SuccessComponent } from './roomsmodule/success/success.component';
+import {ReservationAdminComponent} from "./reservationmodule/reservation-admin/reservation-admin.component";
+import {
+  ReservationConfirmationComponent
+} from "./reservationmodule/reservation-confirmation/reservation-confirmation.component";
+import {TicketComponent} from "./reservationmodule/ticket/ticket.component";
+
 
 const routes: Routes = [
 
-  { path: 'reclamationDetails', component: ReclamationDetailComponent },
+  { path: 'reservationConfirmation/:id', component: ReservationConfirmationComponent },
+  { path: 'ticket', component: TicketComponent },
+
+
+ { path: 'reclamationDetails', component: ReclamationDetailComponent },
   { path: 'reclamationCreate', component: ReclamationCreateComponent },
   { path: 'reclamation-detail/:id', component: ReclamationDetailComponent },
   { path: 'reclamation-user-detail/:id', component: ReclamationDetailUserComponent },
@@ -33,24 +43,25 @@ const routes: Routes = [
   { path: 'gridmovies', component: GridmoviesComponent },
   { path: 'movie/:id', component: MoviepageComponent },
   { path: 'listgenres', component: ListgenresComponent },
- 
+
    { path: '', redirectTo: '/login', pathMatch: 'full' },
 { path: 'login', component: Login },
-  { path: 'CreateAccount', component: CreateAccount } ,  
+  { path: 'CreateAccount', component: CreateAccount } ,
 
 { path: 'admin/users/adduser', component: AddUser },
 { path: 'edit-user/:id', component: EditUser },
 { path: 'profile', component: UserProfile },
   // <- Modifié ici
-  
+
     { path: 'booking/:id', component: BookingComponent },
         { path: 'createRoom', component: CreateRoomComponent },
         { path: 'success', component: SuccessComponent },
-        { path: 'dashboard', component: DashboardComponent , children : [ 
+        { path: 'dashboard', component: DashboardComponent , children : [
                 { path: 'RoomDashboard', component: RoomsAdminDashboardComponent },
                 { path: 'listmovies', component: ListmoviesComponent },
                  { path: 'reclamationHome', component: ReclamationHomeComponent },
                  { path: 'admin/users', component: AdminUserManagement },
+                 { path: 'reservationAdmin', component: ReservationAdminComponent },
 
         ] },
          { path: '**', component: Login },
@@ -58,6 +69,7 @@ const routes: Routes = [
 ];
 
 
+// @ts-ignore
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

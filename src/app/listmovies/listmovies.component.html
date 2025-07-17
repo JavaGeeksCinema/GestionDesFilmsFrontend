@@ -1,3 +1,4 @@
+<!-- Popup d'édition -->
 <div
   *ngIf="isEditPopupOpen"
   class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
@@ -6,6 +7,7 @@
     <h2 class="text-xl font-bold mb-4">Modifier le film</h2>
 
     <form (ngSubmit)="updateMovie()">
+      <!-- Titre -->
       <div class="mb-4">
         <label class="block text-gray-700 font-medium mb-1">Titre</label>
         <input
@@ -17,6 +19,7 @@
         />
       </div>
 
+      <!-- Description -->
       <div class="mb-4">
         <label class="block text-gray-700 font-medium mb-1">Description</label>
         <textarea
@@ -27,17 +30,20 @@
           rows="3"
         ></textarea>
       </div>
+
+      <!-- Acteurs -->
       <div class="mb-4">
         <label class="block text-gray-700 font-medium mb-1">Acteurs</label>
         <textarea
           [(ngModel)]="selectedMovie.acteurs"
-          name="description"
+          name="acteurs"
           required
           class="w-full border border-gray-300 rounded px-3 py-2"
           rows="3"
         ></textarea>
       </div>
 
+      <!-- Date de sortie -->
       <div class="mb-4">
         <label class="block text-gray-700 font-medium mb-1">Date de sortie</label>
         <input
@@ -49,6 +55,7 @@
         />
       </div>
 
+      <!-- Durée -->
       <div class="mb-4">
         <label class="block text-gray-700 font-medium mb-1">Durée (minutes)</label>
         <input
@@ -61,6 +68,7 @@
         />
       </div>
 
+      <!-- Note -->
       <div class="mb-4">
         <label class="block text-gray-700 font-medium mb-1">Note</label>
         <input
@@ -75,6 +83,7 @@
         />
       </div>
 
+      <!-- URL trailer -->
       <div class="mb-4">
         <label class="block text-gray-700 font-medium mb-1">URL Trailer</label>
         <input
@@ -85,8 +94,7 @@
         />
       </div>
 
-      <!-- Tu peux ajouter d'autres champs comme genres, acteurs, etc -->
-
+      <!-- Actions -->
       <div class="flex justify-end space-x-3 mt-6">
         <button
           type="button"
@@ -106,95 +114,94 @@
   </div>
 </div>
 
-<div class="flex justify-center  p-6 mt-10">
-
-    <div class="flex flex-col">
-      <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-          <div class="mb-8 max-w-md">
-            <input
-              type="text"
-              placeholder="Search movies by title..."
-              [(ngModel)]="searchTerm"
-              (ngModelChange)="applyFilter()"
-              class="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-700 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            />
-          </div>
-
-          <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-            <table class="min-w-full divide-y divide-gray-200">
-              <thead class="bg-gray-50">
-              <tr>
-                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Release Date</th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rating</th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trailer</th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Genres</th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Artists</th>
-                <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-              </tr>
-              </thead>
-
-              <tbody class="bg-white divide-y divide-gray-200">
-              <tr *ngFor="let movie of listmovies">
-                <td class="px-4 py-4 text-sm font-semibold text-gray-800">{{ movie.title }}</td>
-
-                <td class="px-4 py-3 max-w-xs">
-  <span *ngIf="expandedMovieId !== movie.id" class="truncate block" title="{{ movie.description }}">
-    {{ movie.description }}
-  </span>
-                  <span *ngIf="expandedMovieId === movie.id">
-    {{ movie.description }}
-  </span>
-                  <button (click)="toggleDescription(movie.id)" class="text-indigo-600 hover:underline ml-2 text-sm">
-                    {{ expandedMovieId === movie.id ? 'Voir moins' : 'Voir plus' }}
-                  </button>
-                </td>
-
-
-
-
-                <td class="px-4 py-4 text-sm text-gray-700">{{ movie.releaseDate | date:'mediumDate' }}</td>
-                <td class="px-4 py-4 text-sm text-gray-700">{{ movie.duration }}</td>
-                <td class="px-4 py-4 text-sm text-gray-700">{{ movie.rating }}</td>
-
-                <td class="px-4 py-4 text-sm text-indigo-600 hover:underline">
-                  <a [href]="movie.trailerUrl" target="_blank" rel="noopener">Voir trailer</a>
-                </td>
-
-                <td class="px-4 py-4 text-sm text-gray-700">
-                  <ul>
-                    <li *ngFor="let genre of genresMap[movie.id]">{{ genre.name }}</li>
-                  </ul>
-                </td>
-
-
-                <td class="px-4 py-3 max-w-xs">
-  <span *ngIf="expandedMovieId !== movie.id" class="truncate block" title="{{ movie.acteurs }}">
-    {{ movie.acteurs }}
-  </span>
-                  <span *ngIf="expandedMovieId === movie.id">
-    {{ movie.acteurs }}
-  </span>
-                  <button (click)="toggleDescription(movie.id)" class="text-indigo-600 hover:underline ml-2 text-sm">
-                    {{ expandedMovieId === movie.id ? 'Voir moins' : 'Voir plus' }}
-                  </button>
-                </td>
-
-                <td class="px-4 flex py-4 text-right text-sm font-medium space-x-2">
-
-                  <button class="btn btn-secondary cancel-button"(click)="openEditPopup(movie)" >Edit</button>
-                  <a  class="text-red-600 hover:text-red-800" (click)="deleteUser(movie.id)">Delete</a>
-                </td>
-              </tr>
-              </tbody>
-
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+<!-- Contenu principal -->
+<div class="flex flex-col p-6 mt-10">
+  <!-- Barre de recherche + bouton -->
+  <div class="mb-8 flex justify-between items-center w-full">
+    <input
+      type="text"
+      placeholder="Search movies by title..."
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="applyFilter()"
+      class="w-full max-w-md rounded-md border border-gray-300 px-4 py-2 text-gray-700 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+    />
+    <button
+      routerLink="/addmovie"
+      class="ml-4 px-6 py-2 bg-[#800000] text-white font-semibold rounded-lg shadow-md hover:bg-[#990000] transition-colors duration-300"
+    >
+      Add Film
+    </button>
   </div>
 
+  <!-- Tableau -->
+  <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+      <tr>
+        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Release Date</th>
+        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
+        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rating</th>
+        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trailer</th>
+        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Genres</th>
+        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Artists</th>
+        <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+      </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+      <tr *ngFor="let movie of listmovies">
+        <td class="px-4 py-4 text-sm font-semibold text-gray-800">{{ movie.title }}</td>
+
+        <!-- Description -->
+        <td class="px-4 py-3 max-w-xs">
+            <span *ngIf="expandedMovieId !== movie.id" class="truncate block" title="{{ movie.description }}">
+              {{ movie.description }}
+            </span>
+          <span *ngIf="expandedMovieId === movie.id">
+              {{ movie.description }}
+            </span>
+          <button (click)="toggleDescription(movie.id)" class="text-indigo-600 hover:underline ml-2 text-sm">
+            {{ expandedMovieId === movie.id ? 'Voir moins' : 'Voir plus' }}
+          </button>
+        </td>
+
+        <td class="px-4 py-4 text-sm text-gray-700">{{ movie.releaseDate | date:'mediumDate' }}</td>
+        <td class="px-4 py-4 text-sm text-gray-700">{{ movie.duration }}</td>
+        <td class="px-4 py-4 text-sm text-gray-700">{{ movie.rating }}</td>
+
+        <!-- Trailer -->
+        <td class="px-4 py-4 text-sm text-indigo-600 hover:underline">
+          <a [href]="movie.trailerUrl" target="_blank" rel="noopener">Voir trailer</a>
+        </td>
+
+        <!-- Genres -->
+        <td class="px-4 py-4 text-sm text-gray-700">
+          <ul>
+            <li *ngFor="let genre of genresMap[movie.id]">{{ genre.name }}</li>
+          </ul>
+        </td>
+
+        <!-- Acteurs -->
+        <td class="px-4 py-3 max-w-xs">
+            <span *ngIf="expandedMovieId !== movie.id" class="truncate block" title="{{ movie.acteurs }}">
+              {{ movie.acteurs }}
+            </span>
+          <span *ngIf="expandedMovieId === movie.id">
+              {{ movie.acteurs }}
+            </span>
+          <button (click)="toggleDescription(movie.id)" class="text-indigo-600 hover:underline ml-2 text-sm">
+            {{ expandedMovieId === movie.id ? 'Voir moins' : 'Voir plus' }}
+          </button>
+        </td>
+
+        <!-- Actions -->
+        <td class="px-4 flex py-4 text-right text-sm font-medium space-x-2">
+          <button class="btn btn-secondary cancel-button" (click)="openEditPopup(movie)">Edit</button>
+          <a class="text-red-600 hover:text-red-800 cursor-pointer" (click)="deleteUser(movie.id)">Delete</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

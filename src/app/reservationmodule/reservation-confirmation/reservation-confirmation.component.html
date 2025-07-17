@@ -1,0 +1,50 @@
+
+<base href="/">
+
+<div class="fixed z-10 inset-0 overflow-y-auto" role="dialog" aria-modal="true">
+  <div class="flex min-h-screen text-center md:block md:px-2 lg:px-4" style="font-size: 0">
+    <div class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity md:block" aria-hidden="true"></div>
+    <span class="hidden md:inline-block md:align-middle md:h-screen" aria-hidden="true">&#8203;</span>
+
+    <div class="flex text-base text-left transform transition w-full md:inline-block md:max-w-xl md:px-4 md:my-8 md:align-middle">
+      <div class="w-full relative flex items-center bg-white px-4 pt-10 pb-8 overflow-hidden shadow-2xl sm:px-6 md:p-6 lg:p-8 rounded-lg">
+        
+        <!-- Close button -->
+        <button type="button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-500">
+          <span class="sr-only">Close</span>
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <!-- Confirmation content -->
+        <div class="w-full text-center">
+          <div class="mb-4">
+            <svg class="mx-auto h-16 w-16 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h2 class="text-xl font-semibold text-gray-900">Payment Successful!</h2>
+          <p class="mt-2 text-sm text-gray-600">Your movie ticket has been confirmed.</p>
+       
+          <!-- Ticket summary -->
+          <div class="mt-6 text-left text-sm text-gray-700 space-y-2">
+      <div *ngIf="reservation">
+  <p><strong>ID:</strong> {{ reservation.id }}</p>
+  <p><strong>Customer ID:</strong> {{ reservation.customerId }}</p>
+  <p><strong>Seat ID:</strong> {{ reservation.seatId }}</p>
+  <p><strong>Seance ID:</strong> {{ reservation.seanceId }}</p>
+  <p><strong>Movie ID:</strong> {{reservation.movieId}}</p>
+  <p><strong>Tickets:</strong> {{reservation.numberOfTickets}}</p>
+  <p><strong>Status:</strong> {{ reservation.status || 'N/A' }}</p>
+</div>
+          </div>
+
+          <div class="mt-6">
+            <a href="/tickets" class="w-full inline-block bg-indigo-600 text-white px-6 py-2 rounded-md text-sm font-medium hover:bg-indigo-700">View My Tickets</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
